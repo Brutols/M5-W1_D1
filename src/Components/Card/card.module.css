@@ -1,11 +1,18 @@
 .card_element {
-    justify-self: center;
-    width: 100%;
-    --bs-gutter-x: 0;
+  justify-self: center;
+  width: 100%;
+  --bs-gutter-x: 0;
 }
 
 .card_img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.border_red {
+  justify-self: center;
+  width: 100%;
+  --bs-gutter-x: 0;
+  border: 2px solid red!important;
 }
