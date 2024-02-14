@@ -11,8 +11,5 @@
 }
 
 .border_red {
-  justify-self: center;
-  width: 100%;
-  --bs-gutter-x: 0;
   border: 2px solid red!important;
 }
