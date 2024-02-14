@@ -46,13 +46,13 @@ const Main = () => {
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
 
-    inputValue.length <= 1
-      ? setFilteredBooks([])
-      : setFilteredBooks(
+    e.target.value
+      ? setFilteredBooks(
           books.filter((book) =>
             book.title.toLowerCase().includes(inputValue.toLowerCase())
           )
-        );
+        )
+      : setFilteredBooks([]);
   };
 
   return (
@@ -61,8 +61,6 @@ const Main = () => {
         type="text"
         className="form-control mt-4 w-50 mx-auto"
         placeholder="Search"
-        aria-label="Search"
-        aria-describedby="basic-addon1"
         value={inputValue}
         onChange={handleInputChange}
       />

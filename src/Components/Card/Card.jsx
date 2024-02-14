@@ -12,7 +12,7 @@ function CardElement(props) {
 
   return (
     <Card
-      className= {`${styles.CardElement} ${isSelected ? styles.border_red : ""}`}
+      className= {`${styles.card_element} ${isSelected ? styles.border_red : ""}`}
       onClick={handleCardClick}
     >
       <Card.Img variant="top" src={props.src} className={styles.card_img} />
