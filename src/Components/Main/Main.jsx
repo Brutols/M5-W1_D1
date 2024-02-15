@@ -45,15 +45,17 @@ const Main = () => {
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
+  };
 
-    e.target.value
+  useEffect(() => {
+    inputValue
       ? setFilteredBooks(
           books.filter((book) =>
             book.title.toLowerCase().includes(inputValue.toLowerCase())
           )
         )
       : setFilteredBooks([]);
-  };
+  }, [books, inputValue]);
 
   return (
     <>
