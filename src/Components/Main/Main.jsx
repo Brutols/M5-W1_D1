@@ -77,6 +77,7 @@ const Main = () => {
               desc={book.category}
               price={book.price}
               src={book.img}
+              asin={book.asin}
             />
           ))
         ) : (
@@ -87,6 +88,7 @@ const Main = () => {
               desc={book.category}
               price={book.price}
               src={book.img}
+              asin={book.asin}
             />
           ))
         )}
