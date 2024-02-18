@@ -1,16 +1,18 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Container } from "react-bootstrap";
-import MyAlert from "../Alert/Alert";
 import { nanoid } from "nanoid";
 import classes from "./main.module.css";
 import CardElement from "../Card/Card";
+import SpinnerLoader from "../Spinner/Spinner";
+import ErrorModal from "../ErrorModal/ErrorModal";
 
 const Main = () => {
   const [loading, setLoading] = useState(false);
   const [books, setBooks] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
+  const [error, setError] = useState("")
 
   useEffect(() => {
     const getBooks = async () => {
@@ -20,19 +22,11 @@ const Main = () => {
         .get("https://striveschool-api.herokuapp.com/books")
         .catch(function (error) {
           if (error.response) {
-            // The request was made and the server responded with a status code
-            // that falls out of the range of 2xx
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
+            setError(`${error.response.status} : ${error.response.message}`);
           } else if (error.request) {
-            // The request was made but no response was received
-            // `error.request` is an instance of XMLHttpRequest in the browser
-            // and an instance of http.ClientRequest in node.js
-            console.log(error.request);
+            setError(`${error.request.status} : ${error.request.message}`)
           } else {
-            // Something happened in setting up the request that triggered an Error
-            console.log("Error", error.message);
+            setError(`Ooops something went wrong! ${error.message}`);
           }
         });
 
@@ -59,6 +53,7 @@ const Main = () => {
 
   return (
     <>
+      {error ? <ErrorModal text={error}/> : ""}
       <input
         type="text"
         className="form-control mt-4 w-50 mx-auto"
@@ -68,7 +63,7 @@ const Main = () => {
       />
       <Container className={classes.card_wrapper}>
         {loading ? (
-          <MyAlert variant="danger" text="Loading..." />
+          <SpinnerLoader />
         ) : filteredBooks.length > 0 ? (
           filteredBooks.map((book) => (
             <CardElement

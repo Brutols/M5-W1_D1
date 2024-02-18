@@ -7,7 +7,7 @@ function MyAlert(props) {
     useEffect(() => {
         setWelcome("Welcome to EpiBooks!")
 
-        setTimeout(() => {
+        props.noTimeOut ? setWelcome(props.text) : setTimeout(() => {
             setWelcome("")
         }, 3000)
     }, [])
@@ -15,7 +15,7 @@ function MyAlert(props) {
   return (
     <>
     {welcome.length > 0 ? (
-        <Alert variant={props.variant}>
+        <Alert className="text-center" variant={props.variant}>
         {props.text ? props.text : welcome}
       </Alert>
     ) : "" 
