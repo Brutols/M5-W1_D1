@@ -12,7 +12,7 @@ const Main = () => {
   const [books, setBooks] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const getBooks = async () => {
@@ -24,7 +24,7 @@ const Main = () => {
           if (error.response) {
             setError(`${error.response.status} : ${error.response.message}`);
           } else if (error.request) {
-            setError(`${error.request.status} : ${error.request.message}`)
+            setError(`${error.request.status} : ${error.request.message}`);
           } else {
             setError(`Ooops something went wrong! ${error.message}`);
           }
@@ -53,11 +53,11 @@ const Main = () => {
 
   return (
     <>
-      {error ? <ErrorModal text={error}/> : ""}
+      {error ? <ErrorModal text={error} /> : ""}
       <input
         type="text"
-        className="form-control mt-4 w-50 mx-auto"
-        placeholder="Search"
+        className={` form-control mt-4 w-50 mx-auto ${classes.search_area}`}
+        placeholder="Search books..."
         value={inputValue}
         onChange={handleInputChange}
       />

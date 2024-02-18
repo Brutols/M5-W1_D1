@@ -1,5 +1,6 @@
 import { Button, Form } from "react-bootstrap";
 import Rating from "react-rating-stars-component";
+import styles from "./addComment.module.css"
 import axios from "axios";
 
 const AddComment = ({ asin, handleCommentRefresh, formData, setFormData }) => {
@@ -57,13 +58,12 @@ const AddComment = ({ asin, handleCommentRefresh, formData, setFormData }) => {
       <Form onSubmit={formData.isEditing ? handleEdit : handleForm}>
         <input
           type="text"
-          className="form-control mt-4 mx-auto"
+          className={`form-control mt-4 mx-auto ${styles.input_area}`}
           placeholder="Add a comment here"
           value={formData.inputValue}
           onChange={handleInputChange}
         />
         <Form.Group className="mb-3">
-          <Form.Label>Rate:</Form.Label>
           <Rating
             count={5}
             onChange={handleRatingChange}
@@ -72,7 +72,7 @@ const AddComment = ({ asin, handleCommentRefresh, formData, setFormData }) => {
             value={formData.rating}
           />
         </Form.Group>
-        <Button type="submit">Submit</Button>
+        <Button type="submit" variant="dark">Submit</Button>
       </Form>
     </>
   );

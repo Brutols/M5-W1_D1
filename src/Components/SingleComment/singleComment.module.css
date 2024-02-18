@@ -1,0 +1,18 @@
+.comment_element {
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.stars {
+    color: rgb(255, 215, 0);
+}
+
+.action_icons {
+    font-size: 24px;
+    transition: all 0.3s ease-in-out;
+}
+
+.action_icons:hover {
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.95);
+}

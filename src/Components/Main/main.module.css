@@ -6,6 +6,14 @@
     margin-top: 2rem;
 }
 
+.search_area {
+    border: 1px solid #212529!important;
+}
+
+.search_area:focus {
+    box-shadow: 0 0 0 0.25rem rgba(30, 33, 37, 0.25)!important;
+}
+
 @media screen and (max-width: 1200px) {
     .card_wrapper {
         grid-template-columns: repeat(3, 1fr);

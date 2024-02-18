@@ -3,7 +3,9 @@ import { IoStar } from "react-icons/io5";
 import { IoStarOutline } from "react-icons/io5";
 import { IoTrashSharp } from "react-icons/io5";
 import { IoCreateSharp } from "react-icons/io5";
+import styles from "./singleComment.module.css";
 import axios from "axios";
+import ErrorModal from "../ErrorModal/ErrorModal";
 
 const SingleComment = ({
   text,
@@ -14,9 +16,14 @@ const SingleComment = ({
   setFormData,
 }) => {
   const [loggedUser, setLoggedUser] = useState("dtwo97@gmail.com");
+  const [checkDelete, setCheckDelete] = useState(false);
 
   const stars = Array.from({ length: 5 }, (_, index) =>
-    index < rating ? <IoStar key={index} /> : <IoStarOutline key={index} />
+    index < rating ? (
+      <IoStar key={index} className={styles.stars} />
+    ) : (
+      <IoStarOutline key={index} className={styles.stars} />
+    )
   );
 
   const handleEdit = async (e) => {
@@ -29,8 +36,11 @@ const SingleComment = ({
     });
   };
 
-  const deleteComment = async (e) => {
-    e.preventDefault();
+  const handleCheckDelete = () => {
+    setCheckDelete(true);
+  };
+
+  const deleteComment = async () => {
     await axios.delete(
       `https://striveschool-api.herokuapp.com/api/comments/${id}`,
       {
@@ -41,25 +51,39 @@ const SingleComment = ({
         },
       }
     );
+    setCheckDelete(false)
     handleCommentRefresh();
   };
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center px-5">
+      <div
+        className={` bg-dark d-flex justify-content-between align-items-center my-3 p-2 mx-5 ${styles.comment_element}`}
+      >
         <div>
-          <p className="mx-0 mt-3 mb-0">{text}</p>
           <div>{stars}</div>
+          <p className="mx-0 mb-0">{text}</p>
         </div>
         {loggedUser === user ? (
           <div className="d-flex gap-1">
-            <IoCreateSharp onClick={handleEdit} />
-            <IoTrashSharp onClick={deleteComment} />
+            <IoCreateSharp
+              onClick={handleEdit}
+              className={styles.action_icons}
+            />
+            <IoTrashSharp
+              onClick={handleCheckDelete}
+              className={styles.action_icons}
+            />
           </div>
         ) : (
           ""
         )}
       </div>
+      {checkDelete ? (
+        <ErrorModal isDeleting={true} deleteFn={deleteComment} setCheckDelete={setCheckDelete}/>
+      ) : (
+        ""
+      )}
     </>
   );
 };

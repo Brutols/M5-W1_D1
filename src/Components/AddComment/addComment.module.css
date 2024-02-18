@@ -1,0 +1,7 @@
+.input_area {
+    border: 1px solid #212529!important;
+}
+
+.input_area:focus {
+    box-shadow: 0 0 0 0.25rem rgba(30, 33, 37, 0.25)!important;
+}

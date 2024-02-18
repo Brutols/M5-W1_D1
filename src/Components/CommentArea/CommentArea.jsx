@@ -86,7 +86,7 @@ function CommentArea(props) {
         />
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={props.onHide} variant="dark">Close</Button>
       </Modal.Footer>
     </Modal>
     </>
