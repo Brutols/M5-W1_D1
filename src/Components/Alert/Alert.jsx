@@ -10,7 +10,7 @@ function MyAlert(props) {
         props.noTimeOut ? setWelcome(props.text) : setTimeout(() => {
             setWelcome("")
         }, 3000)
-    }, [])
+    }, [props.noTimeOut, props.text])
 
   return (
     <>

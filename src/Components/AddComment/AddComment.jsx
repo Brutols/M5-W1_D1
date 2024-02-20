@@ -2,14 +2,19 @@ import { Button, Form } from "react-bootstrap";
 import Rating from "react-rating-stars-component";
 import styles from "./addComment.module.css"
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { allFormData, handleFormData, handleCommentRefresh } from "../../Reducers/comments/commentsSlice";
 
-const AddComment = ({ asin, handleCommentRefresh, formData, setFormData }) => {
+const AddComment = ({ asin }) => {
+  const formData = useSelector(allFormData)
+  const dispatch = useDispatch()
+
   const handleInputChange = (e) => {
-    setFormData({ ...formData, inputValue: e.target.value });
+    dispatch(handleFormData({type: "editInput", value: e.target.value}))
   };
 
   const handleRatingChange = (newRating) => {
-    setFormData({ ...formData, rating: newRating });
+    dispatch(handleFormData({type: "editRating", value: newRating}))
   };
 
   const handleEdit = async (e) => {
@@ -29,7 +34,7 @@ const AddComment = ({ asin, handleCommentRefresh, formData, setFormData }) => {
         },
       }
     );
-    handleCommentRefresh()
+    dispatch(handleCommentRefresh())
   };
 
   const handleForm = async (e) => {
@@ -50,7 +55,7 @@ const AddComment = ({ asin, handleCommentRefresh, formData, setFormData }) => {
         },
       }
     );
-    handleCommentRefresh();
+    dispatch(handleCommentRefresh())
   };
 
   return (

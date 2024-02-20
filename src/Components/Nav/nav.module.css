@@ -1,0 +1,14 @@
+.top_nav {
+    position: fixed!important;
+    width: 100%;
+    top: 0;
+    z-index: 2;
+}
+
+.search_area {
+    border: 1px solid rgba(255, 255, 255, 0.75)!important;
+}
+
+.search_area:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25)!important;
+}

@@ -1,18 +1,16 @@
-import { useEffect, useState } from "react";
 import SingleComment from "../SingleComment/SingleComment";
 import { nanoid } from "nanoid";
 import styles from "./commentList.module.css";
+import { useSelector } from "react-redux";
+import { allComments } from "../../Reducers/comments/commentsSlice";
 
-const CommentList = ({ comments, handleCommentRefresh, setFormData }) => {
-  const [coms, setComs] = useState([]);
-
-  useEffect(() => {
-    setComs(comments);
-  }, [comments]);
+const CommentList = () => {
+const comments = useSelector(allComments)
+console.log(comments);
 
   return (
     <div className={styles.commentWrapper}>
-      {coms.map((comment) => {
+      {comments.map((comment) => {
         return (
           <SingleComment
             key={nanoid()}
@@ -20,8 +18,6 @@ const CommentList = ({ comments, handleCommentRefresh, setFormData }) => {
             rating={comment.rate}
             id={comment._id}
             user={comment.author}
-            handleCommentRefresh={handleCommentRefresh}
-            setFormData={setFormData}
           />
         );
       })}

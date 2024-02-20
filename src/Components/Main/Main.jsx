@@ -1,66 +1,36 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import MyAlert from "../Alert/Alert";
 import { Container } from "react-bootstrap";
 import { nanoid } from "nanoid";
 import classes from "./main.module.css";
 import CardElement from "../Card/Card";
 import SpinnerLoader from "../Spinner/Spinner";
 import ErrorModal from "../ErrorModal/ErrorModal";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  allBooks,
+  allFilteredBooks,
+  getBooks,
+  isAllBooksError,
+  isAllBooksLoading,
+} from "../../Reducers/books/booksSlice";
 
 const Main = () => {
-  const [loading, setLoading] = useState(false);
-  const [books, setBooks] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [filteredBooks, setFilteredBooks] = useState([]);
-  const [error, setError] = useState("");
+  const loading = useSelector(isAllBooksLoading);
+  const books = useSelector(allBooks);
+  const filteredBooks = useSelector(allFilteredBooks);
+  const error = useSelector(isAllBooksError);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const getBooks = async () => {
-      setLoading(true);
-
-      const res = await axios
-        .get("https://striveschool-api.herokuapp.com/books")
-        .catch(function (error) {
-          if (error.response) {
-            setError(`${error.response.status} : ${error.response.message}`);
-          } else if (error.request) {
-            setError(`${error.request.status} : ${error.request.message}`);
-          } else {
-            setError(`Ooops something went wrong! ${error.message}`);
-          }
-        });
-
-      setBooks(res.data);
-
-      setLoading(false);
-    };
-    getBooks();
-  }, []);
-
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value);
-  };
-
-  useEffect(() => {
-    inputValue
-      ? setFilteredBooks(
-          books.filter((book) =>
-            book.title.toLowerCase().includes(inputValue.toLowerCase())
-          )
-        )
-      : setFilteredBooks([]);
-  }, [books, inputValue]);
+    dispatch(getBooks());
+  }, [dispatch]);
 
   return (
     <>
+    <div className={classes.main_wrapper}>
+      <MyAlert variant="success"/>
       {error ? <ErrorModal text={error} /> : ""}
-      <input
-        type="text"
-        className={` form-control mt-4 w-50 mx-auto ${classes.search_area}`}
-        placeholder="Search books..."
-        value={inputValue}
-        onChange={handleInputChange}
-      />
       <Container className={classes.card_wrapper}>
         {loading ? (
           <SpinnerLoader />
@@ -88,6 +58,7 @@ const Main = () => {
           ))
         )}
       </Container>
+      </div>
     </>
   );
 };

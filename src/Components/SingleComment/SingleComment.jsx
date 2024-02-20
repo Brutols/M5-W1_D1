@@ -6,17 +6,25 @@ import { IoCreateSharp } from "react-icons/io5";
 import styles from "./singleComment.module.css";
 import axios from "axios";
 import ErrorModal from "../ErrorModal/ErrorModal";
+import { useDispatch } from "react-redux";
+import { handleCommentRefresh, handleFormData } from "../../Reducers/comments/commentsSlice";
 
 const SingleComment = ({
   text,
   rating,
   id,
   user,
-  handleCommentRefresh,
-  setFormData,
 }) => {
   const [loggedUser, setLoggedUser] = useState("dtwo97@gmail.com");
   const [checkDelete, setCheckDelete] = useState(false);
+  const dispatch = useDispatch()
+
+  const formData = {
+    rating: rating,
+    inputValue: text,
+    isEditing: true,
+    commentId: id,
+  }
 
   const stars = Array.from({ length: 5 }, (_, index) =>
     index < rating ? (
@@ -28,12 +36,7 @@ const SingleComment = ({
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    setFormData({
-      rating: rating,
-      inputValue: text,
-      isEditing: true,
-      commentId: id,
-    });
+    dispatch(handleFormData({type: "replace", value: formData}))
   };
 
   const handleCheckDelete = () => {
@@ -52,7 +55,7 @@ const SingleComment = ({
       }
     );
     setCheckDelete(false)
-    handleCommentRefresh();
+    dispatch(handleCommentRefresh())
   };
 
   return (
