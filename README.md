@@ -5,10 +5,10 @@ https://brutols.github.io/M5-W1_D1/
 Welcome to the React Bookstore project! This project is a simple web application that allows users to explore a collection of books fetched from an API. Users can search for specific books, view details about each book, and add, edit, or delete comments associated with each book.
 
 # Technologies Used
-React: A JavaScript library for building user interfaces.
-React Bootstrap: A library that provides Bootstrap components as React components.
-Redux: A state management library for JavaScript applications.
-Axios: A promise-based HTTP client for making API requests.
+- React: A JavaScript library for building user interfaces.
+- React Bootstrap: A library that provides Bootstrap components as React components.
+- Redux: A state management library for JavaScript applications.
+- Axios: A promise-based HTTP client for making API requests.
 
 # Usage
 The homepage displays a list of books fetched from the API.
