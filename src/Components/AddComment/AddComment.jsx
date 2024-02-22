@@ -4,9 +4,11 @@ import styles from "./addComment.module.css"
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { allFormData, handleFormData, handleCommentRefresh } from "../../Reducers/comments/commentsSlice";
+import { isDarkModeActive } from "../../Reducers/darkMode/darkModeSlice";
 
 const AddComment = ({ asin }) => {
   const formData = useSelector(allFormData)
+  const isDarkMode = useSelector(isDarkModeActive)
   const dispatch = useDispatch()
 
   const handleInputChange = (e) => {
@@ -63,7 +65,7 @@ const AddComment = ({ asin }) => {
       <Form onSubmit={formData.isEditing ? handleEdit : handleForm}>
         <input
           type="text"
-          className={`form-control mt-4 mx-auto ${styles.input_area}`}
+          className={`form-control mt-4 mx-auto ${isDarkMode ? styles.input_area_dark : styles.input_area}`}
           placeholder="Add a comment here"
           value={formData.inputValue}
           onChange={handleInputChange}
@@ -77,7 +79,7 @@ const AddComment = ({ asin }) => {
             value={formData.rating}
           />
         </Form.Group>
-        <Button type="submit" variant="dark">Submit</Button>
+        <Button type="submit" variant={`${isDarkMode ? "light" : "dark"}`}>Submit</Button>
       </Form>
     </>
   );

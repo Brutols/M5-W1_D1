@@ -11,17 +11,20 @@ import {
   isAllCommentsError,
   isCommentRefreshed,
 } from "../../Reducers/comments/commentsSlice";
+import { isDarkModeActive } from "../../Reducers/darkMode/darkModeSlice";
+import styles from "./commentArea.module.css"
 
 function CommentArea(props) {
   const commentsList = useSelector(allComments);
   const commentRefresh = useSelector(isCommentRefreshed);
   const error = useSelector(isAllCommentsError);
+  const isDarkMode = useSelector(isDarkModeActive)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
     dispatch(getComments(props.asin))
-  }, [commentRefresh, dispatch]);
+  }, [commentRefresh, dispatch, props.asin]);
 
   return (
     <>
@@ -31,6 +34,7 @@ function CommentArea(props) {
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
         centered
+        className={isDarkMode ? styles.modal_dark : ""}
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
@@ -46,7 +50,7 @@ function CommentArea(props) {
           />
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={props.onHide} variant="dark">
+          <Button onClick={props.onHide} variant={`${isDarkMode ? "light" : "dark"}`}>
             Close
           </Button>
         </Modal.Footer>

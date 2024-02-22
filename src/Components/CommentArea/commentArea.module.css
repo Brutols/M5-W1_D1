@@ -1,0 +1,4 @@
+.modal_dark {
+    --bs-modal-bg: #212529!important;
+    color: white;
+}

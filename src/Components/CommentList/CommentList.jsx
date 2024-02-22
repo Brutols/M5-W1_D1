@@ -6,7 +6,6 @@ import { allComments } from "../../Reducers/comments/commentsSlice";
 
 const CommentList = () => {
 const comments = useSelector(allComments)
-console.log(comments);
 
   return (
     <div className={styles.commentWrapper}>

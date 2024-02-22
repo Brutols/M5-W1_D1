@@ -1,6 +1,13 @@
 .comment_element {
     border-radius: 10px;
     color: rgba(255, 255, 255, 0.55);
+    background-color: #212529;
+}
+
+.comment_element_dark {
+    border-radius: 10px;
+    color: #212529;
+    background-color: rgba(255, 255, 255, 0.45);
 }
 
 .stars {

@@ -6,25 +6,25 @@ import { IoCreateSharp } from "react-icons/io5";
 import styles from "./singleComment.module.css";
 import axios from "axios";
 import ErrorModal from "../ErrorModal/ErrorModal";
-import { useDispatch } from "react-redux";
-import { handleCommentRefresh, handleFormData } from "../../Reducers/comments/commentsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  handleCommentRefresh,
+  handleFormData,
+} from "../../Reducers/comments/commentsSlice";
+import { isDarkModeActive } from "../../Reducers/darkMode/darkModeSlice";
 
-const SingleComment = ({
-  text,
-  rating,
-  id,
-  user,
-}) => {
+const SingleComment = ({ text, rating, id, user }) => {
   const [loggedUser, setLoggedUser] = useState("dtwo97@gmail.com");
   const [checkDelete, setCheckDelete] = useState(false);
-  const dispatch = useDispatch()
+  const isDarkMode = useSelector(isDarkModeActive);
+  const dispatch = useDispatch();
 
   const formData = {
     rating: rating,
     inputValue: text,
     isEditing: true,
     commentId: id,
-  }
+  };
 
   const stars = Array.from({ length: 5 }, (_, index) =>
     index < rating ? (
@@ -36,7 +36,7 @@ const SingleComment = ({
 
   const handleEdit = async (e) => {
     e.preventDefault();
-    dispatch(handleFormData({type: "replace", value: formData}))
+    dispatch(handleFormData({ type: "replace", value: formData }));
   };
 
   const handleCheckDelete = () => {
@@ -54,14 +54,16 @@ const SingleComment = ({
         },
       }
     );
-    setCheckDelete(false)
-    dispatch(handleCommentRefresh())
+    setCheckDelete(false);
+    dispatch(handleCommentRefresh());
   };
 
   return (
     <>
       <div
-        className={` bg-dark d-flex justify-content-between align-items-center my-3 p-2 mx-5 ${styles.comment_element}`}
+        className={`d-flex justify-content-between align-items-center my-3 p-2 mx-5 ${
+          isDarkMode ? styles.comment_element_dark : styles.comment_element
+        }`}
       >
         <div>
           <div>{stars}</div>
@@ -83,7 +85,11 @@ const SingleComment = ({
         )}
       </div>
       {checkDelete ? (
-        <ErrorModal isDeleting={true} deleteFn={deleteComment} setCheckDelete={setCheckDelete}/>
+        <ErrorModal
+          isDeleting={true}
+          deleteFn={deleteComment}
+          setCheckDelete={setCheckDelete}
+        />
       ) : (
         ""
       )}

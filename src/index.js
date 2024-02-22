@@ -9,10 +9,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import booksReducer from "./Reducers/books/booksSlice";
 import commentsReducer from "./Reducers/comments/commentsSlice";
+import darkModeReducer from "./Reducers/darkMode/darkModeSlice"
 
 const reducer = combineReducers({
   booksData: booksReducer,
   commentsData: commentsReducer,
+  darkModeData: darkModeReducer
 });
 
 const store = configureStore({

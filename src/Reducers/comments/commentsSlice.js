@@ -42,7 +42,6 @@ const commentsSlice = createSlice({
   reducers: {
     handleCommentRefresh: (state) => {
       state.commentRefresh = !state.commentRefresh;
-      console.log(state.commentRefresh);
     },
     handleFormData: (state, { payload }) => {
       const { type, value } = payload;
@@ -74,7 +73,7 @@ const commentsSlice = createSlice({
       })
       .addCase(getComments.fulfilled, (state, action) => {
         state.loading = false;
-        state.commentsList = action.payload;
+        state.commentsList = action.payload.reverse();
       })
       .addCase(getComments.rejected, (state, action) => {
         state.loading = false;
