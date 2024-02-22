@@ -1,18 +1,23 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
+import { useDispatch } from "react-redux";
+import { deleteComment } from "../../Reducers/comments/commentsSlice";
 
-function ErrorModal({text, isDeleting, deleteFn, setCheckDelete}) {
+function ErrorModal({text, isDeleting, setCheckDelete, id}) {
   const [smShow, setSmShow] = useState(true);
+  const dispatch = useDispatch()
 
   const  handleClose = () => {
     setSmShow(false)
-    setCheckDelete(false)
+    if (setCheckDelete) {
+      setCheckDelete(false)
+    }
   }
 
   const handleDelete = () => {
     setSmShow(false)
-    deleteFn()
+    dispatch(deleteComment(id))
   }
 
   return (

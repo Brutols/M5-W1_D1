@@ -36,10 +36,73 @@ export const getComments = createAsyncThunk(
   }
 );
 
+export const postComment = createAsyncThunk(
+  "comments/POSTComments",
+  async ({ commentText, commentRate, commentId }) => {
+    await axios.post(
+      "https://striveschool-api.herokuapp.com/api/comments/",
+      {
+        comment: commentText,
+        rate: commentRate,
+        elementId: commentId,
+      },
+      {
+        headers: {
+          Authorization:
+            "Bearer " +
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmOWU5YmJkNWQxMjAwMTg5MGQ0NjQiLCJpYXQiOjE3MDgwOTU5MjEsImV4cCI6MTcwOTMwNTUyMX0.uUoRJ9TIYLG9g18h_sNUuZ0dnv9hqZIVH6jD_kpZhFs",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+);
+
+export const editComment = createAsyncThunk(
+  "comments/PUTComments",
+  async ({ commentText, commentRate, commentId }) => {
+    await axios.put(
+      `https://striveschool-api.herokuapp.com/api/comments/${commentId}`,
+      {
+        comment: commentText,
+        rate: commentRate,
+      },
+      {
+        headers: {
+          Authorization:
+            "Bearer " +
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmOWU5YmJkNWQxMjAwMTg5MGQ0NjQiLCJpYXQiOjE3MDgwOTU5MjEsImV4cCI6MTcwOTMwNTUyMX0.uUoRJ9TIYLG9g18h_sNUuZ0dnv9hqZIVH6jD_kpZhFs",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  }
+);
+
+export const deleteComment = createAsyncThunk(
+  "comments/DELETEComments",
+  async (id) => {
+    await axios.delete(
+      `https://striveschool-api.herokuapp.com/api/comments/${id}`,
+      {
+        headers: {
+          Authorization:
+            "Bearer " +
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmOWU5YmJkNWQxMjAwMTg5MGQ0NjQiLCJpYXQiOjE3MDgwOTU5MjEsImV4cCI6MTcwOTMwNTUyMX0.uUoRJ9TIYLG9g18h_sNUuZ0dnv9hqZIVH6jD_kpZhFs",
+        },
+      }
+    );
+  }
+);
+
 const commentsSlice = createSlice({
   name: "comments",
   initialState,
   reducers: {
+    handleError: (state, { payload }) => {
+      const { value } = payload;
+      state.error = value;
+    },
     handleCommentRefresh: (state) => {
       state.commentRefresh = !state.commentRefresh;
     },
@@ -78,6 +141,15 @@ const commentsSlice = createSlice({
       .addCase(getComments.rejected, (state, action) => {
         state.loading = false;
         state.error = `${action.error.code}: ${action.error.message}`;
+      })
+      .addCase(postComment.fulfilled, (state) => {
+        state.commentRefresh = !state.commentRefresh;
+      })
+      .addCase(editComment.fulfilled, (state) => {
+        state.commentRefresh = !state.commentRefresh;
+      })
+      .addCase(deleteComment.fulfilled, (state) => {
+        state.commentRefresh = !state.commentRefresh;
       });
   },
 });
@@ -87,6 +159,7 @@ export const isAllCommentsLoading = (state) => state.commentsData.loading;
 export const isCommentRefreshed = (state) => state.commentsData.commentRefresh;
 export const allFormData = (state) => state.commentsData.formData;
 export const isAllCommentsError = (state) => state.commentsData.error;
-export const { handleCommentRefresh, handleFormData } = commentsSlice.actions;
+export const { handleCommentRefresh, handleFormData, handleError } =
+  commentsSlice.actions;
 
 export default commentsSlice.reducer;
