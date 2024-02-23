@@ -34,6 +34,7 @@ const AddComment = (props) => {
       if (formData.isEditing) {
         e.preventDefault();
         dispatch(editComment({commentText: formData.inputValue, commentRate: formData.rating, commentId: formData.commentId}))
+        dispatch(handleFormData({type: "reset"}))
       } else {
         e.preventDefault();
         dispatch(postComment({commentText: formData.inputValue, commentRate: formData.rating, commentId: props.asin}))

@@ -124,6 +124,9 @@ const commentsSlice = createSlice({
         case "editCommentId":
           state.formData = { ...state.formData, commentId: value };
           break;
+        case "reset":
+          state.formData = initialState.formData;
+          break;
         default:
           return state;
       }
