@@ -70,7 +70,7 @@ const AddComment = (props) => {
           {loading ? <Spinner normal="true" /> : "Submit"}
         </Button>
       </Form>
-      <ErrorModal text={error} />
+      {error ? <ErrorModal text={error} /> : ""}
     </>
   );
 };

@@ -9,12 +9,14 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import booksReducer from "./Reducers/books/booksSlice";
 import commentsReducer from "./Reducers/comments/commentsSlice";
-import darkModeReducer from "./Reducers/darkMode/darkModeSlice"
+import darkModeReducer from "./Reducers/darkMode/darkModeSlice";
+import navInputReducer from "./Reducers/NavInput/navInputSlice"
 
 const reducer = combineReducers({
   booksData: booksReducer,
   commentsData: commentsReducer,
-  darkModeData: darkModeReducer
+  darkModeData: darkModeReducer,
+  navInputData: navInputReducer
 });
 
 const store = configureStore({

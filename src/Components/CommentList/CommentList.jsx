@@ -4,11 +4,11 @@ import styles from "./commentList.module.css";
 import { useSelector } from "react-redux";
 import { allComments } from "../../Reducers/comments/commentsSlice";
 
-const CommentList = () => {
+const CommentList = ({isDetails}) => {
 const comments = useSelector(allComments)
 
   return (
-    <div className={styles.commentWrapper}>
+    <div className={!isDetails ? styles.commentWrapper : ""}>
       {comments.map((comment) => {
         return (
           <SingleComment
