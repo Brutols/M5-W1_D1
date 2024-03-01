@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import MyAlert from "../Alert/Alert";
 import { Container } from "react-bootstrap";
-import { nanoid } from "nanoid";
 import classes from "./main.module.css";
 import CardElement from "../Card/Card";
 import SpinnerLoader from "../Spinner/Spinner";
@@ -35,9 +34,9 @@ const Main = () => {
         {loading ? (
           <SpinnerLoader />
         ) : filteredBooks.length > 0 ? (
-          filteredBooks.map((book) => (
+          filteredBooks.map((book, i) => (
             <CardElement
-              key={nanoid()}
+              key={i}
               title={book.title}
               desc={book.category}
               price={book.price}
@@ -46,9 +45,9 @@ const Main = () => {
             />
           ))
         ) : (
-          books.map((book) => (
+          books.map((book, i) => (
             <CardElement
-              key={nanoid()}
+              key={i}
               title={book.title}
               desc={book.category}
               price={book.price}

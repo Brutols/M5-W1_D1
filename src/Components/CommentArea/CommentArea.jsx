@@ -27,7 +27,7 @@ function CommentArea(props) {
   }, [commentRefresh, dispatch, props.asin]);
 
   return (
-    <>
+    <div role="dialog">
       {error ? <ErrorModal text={error} /> : ""}
       <Modal
         {...props}
@@ -55,7 +55,7 @@ function CommentArea(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 }
 

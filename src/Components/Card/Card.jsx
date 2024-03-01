@@ -57,6 +57,7 @@ function CardElement(props) {
             onMouseEnter={handleCardHover}
             onMouseLeave={handleCardHover}
             onClick={handleCardClick}
+            role="modal_btn"
           />
           <Card.Body>
             <Card.Title className="text-truncate">{props.title}</Card.Title>

@@ -1,5 +1,4 @@
 import SingleComment from "../SingleComment/SingleComment";
-import { nanoid } from "nanoid";
 import styles from "./commentList.module.css";
 import { useSelector } from "react-redux";
 import { allComments } from "../../Reducers/comments/commentsSlice";
@@ -9,10 +8,10 @@ const comments = useSelector(allComments)
 
   return (
     <div className={!isDetails ? styles.commentWrapper : ""}>
-      {comments.map((comment) => {
+      {comments.map((comment, i) => {
         return (
           <SingleComment
-            key={nanoid()}
+            key={i}
             text={comment.comment}
             rating={comment.rate}
             id={comment._id}
