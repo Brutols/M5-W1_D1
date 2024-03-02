@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, act, fireEvent } from "@testing-library/react";
+import { render, act, screen } from "@testing-library/react";
 import App from "../../App";
 import axios from "axios";
 import { Provider } from "react-redux";
@@ -18,8 +18,10 @@ const store = configureStore({
   reducer,
 });
 
-test.only("modal open on card click", async () => {
-  render(
+jest.useFakeTimers();
+
+test.only("Alert show and disappear after 3 seconds", async () => {
+  const { getByTestId } = render(
     <Provider store={store}>
       <App />
     </Provider>
@@ -39,14 +41,13 @@ test.only("modal open on card click", async () => {
     },
   });
 
-  //on render test if modal is not visible
-  expect(screen.queryByRole("dialog")).toBeNull();
+  const alert = getByTestId("alert_component");
 
-  //simulate the click of the card to open the modal
-  act(async () => {
-    fireEvent.click( await screen.findByRole("modal_btn"));
+  expect(alert).toBeTruthy();
+
+  act(() => {
+    jest.advanceTimersByTime(3000);
   });
 
-  //check if modal is shown correctly
-  expect(screen.findByRole("dialog")).toBeTruthy();
+  expect(screen.queryByTestId("alert_component")).toBeNull();
 });

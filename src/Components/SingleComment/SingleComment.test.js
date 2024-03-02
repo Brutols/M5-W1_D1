@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, act, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import App from "../../App";
 import axios from "axios";
 import { Provider } from "react-redux";
@@ -18,7 +18,7 @@ const store = configureStore({
   reducer,
 });
 
-test.only("modal open on card click", async () => {
+test.only("onRender no istances of single comment exists", async () => {
   render(
     <Provider store={store}>
       <App />
@@ -39,14 +39,6 @@ test.only("modal open on card click", async () => {
     },
   });
 
-  //on render test if modal is not visible
-  expect(screen.queryByRole("dialog")).toBeNull();
+  expect(screen.queryByTestId("single_comment")).toBeNull()
 
-  //simulate the click of the card to open the modal
-  act(async () => {
-    fireEvent.click( await screen.findByRole("modal_btn"));
-  });
-
-  //check if modal is shown correctly
-  expect(screen.findByRole("dialog")).toBeTruthy();
 });

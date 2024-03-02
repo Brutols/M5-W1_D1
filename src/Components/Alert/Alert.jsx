@@ -15,7 +15,7 @@ function MyAlert(props) {
   return (
     <>
     {welcome.length > 0 ? (
-        <Alert className="text-center" variant={props.variant}>
+        <Alert data-testid="alert_component" className="text-center" variant={props.variant}>
         {props.text ? props.text : welcome}
       </Alert>
     ) : "" 

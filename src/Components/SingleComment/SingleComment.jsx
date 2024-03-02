@@ -44,6 +44,7 @@ const SingleComment = ({ text, rating, id, user }) => {
   return (
     <>
       <div
+        data-testid="single_comment"
         className={`d-flex justify-content-between align-items-center my-3 p-2 mx-5 ${
           isDarkMode ? styles.comment_element_dark : styles.comment_element
         }`}
