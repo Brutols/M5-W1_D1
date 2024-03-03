@@ -1,53 +1,38 @@
-import React from "react";
-import { render, act, screen } from "@testing-library/react";
-import App from "../../App";
-import axios from "axios";
-import { Provider } from "react-redux";
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import booksReducer from "../../Reducers/books/booksSlice";
-import darkModeReducer from "../../Reducers/darkMode/darkModeSlice";
-import navInputReducer from "../../Reducers/NavInput/navInputSlice";
+// setupTests.js
+import '@testing-library/jest-dom';
+import React from 'react';
+import { render, screen, waitFor, act } from '@testing-library/react';
+import Alert from './Alert';
 
-const reducer = combineReducers({
-  booksData: booksReducer,
-  darkModeData: darkModeReducer,
-  navInputData: navInputReducer,
-});
-
-const store = configureStore({
-  reducer,
-});
-
+// Jest's fake timers ti permette di controllare il passaggio del tempo
 jest.useFakeTimers();
 
-test.only("Alert show and disappear after 3 seconds", async () => {
-  const { getByTestId } = render(
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
+describe('MyAlert component', () => {
+    test('renders the welcome message', () => {
+        render(<Alert />);
+        expect(screen.getByText('Welcome to EpiBooks!')).toBeInTheDocument();
+    });
 
-  axios.get.mockResolvedValueOnce({
-    data: {
-      results: [
-        {
-          asin: "1250082757",
-          title: "Born of Vengeance: The League: Nemesis Rising",
-          img: "https://images-na.ssl-images-amazon.com/images/I/91J28bj3PYL.jpg",
-          price: 26.09,
-          category: "scifi",
-        },
-      ],
-    },
-  });
+    test('renders the custom text when noTimeOut is true', () => {
+        const customText = 'Custom welcome message';
+        render(<Alert noTimeOut={true} text={customText} />);
+        expect(screen.getByText(customText)).toBeInTheDocument();
+    });
 
-  const alert = getByTestId("alert_component");
+    test('clears the welcome message after 3 seconds', async () => {
+        render(<Alert />);
+        expect(screen.getByText('Welcome to EpiBooks!')).toBeInTheDocument();
 
-  expect(alert).toBeTruthy();
+        // Avvolge l'operazione che causa l'aggiornamento di stato in act() e usa timer falsi
+        act(() => {
+            jest.advanceTimersByTime(3000);
+        });
 
-  act(() => {
-    jest.advanceTimersByTime(3000);
-  });
+        // Aspetta e verifica che il messaggio sia sparito
+        await waitFor(() => {
+            expect(screen.queryByText('Welcome to EpiBooks!')).not.toBeInTheDocument();
+        });
+    });
 
-  expect(screen.queryByTestId("alert_component")).toBeNull();
 });
+

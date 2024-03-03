@@ -13,14 +13,14 @@ function CardElement(props) {
   const [isSelected, setIsSelected] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const isDarkMode = useSelector(isDarkModeActive);
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleNavigateDetail = (e) => {
-    e.preventDefault()
-    dispatch(setIsVisible())
-    navigate(`/book-detail/${props.asin}`)
-  }
+    e.preventDefault();
+    dispatch(setIsVisible());
+    navigate(`/book-detail/${props.asin}`);
+  };
 
   const handleCardClick = () => {
     setModalShow(!modalShow);
@@ -40,6 +40,7 @@ function CardElement(props) {
     <>
       <OverlayTrigger placement="top" overlay={tooltip} delay={300}>
         <Card
+          data-testid="my-card-id"
           className={`${
             isDarkMode ? styles.card_element_dark : styles.card_element
           } ${
@@ -57,13 +58,21 @@ function CardElement(props) {
             onMouseEnter={handleCardHover}
             onMouseLeave={handleCardHover}
             onClick={handleCardClick}
-            role="modal_btn"
+            data-testid="modal-btn"
           />
           <Card.Body>
             <Card.Title className="text-truncate">{props.title}</Card.Title>
             <Card.Text>{props.desc}</Card.Text>
-            <Button variant={`${isDarkMode ? "light" : "dark"}`}>{props.price}</Button>
-            <Button variant={`${isDarkMode ? "light" : "dark"}`} onClick={handleNavigateDetail} className="mx-2">Details</Button>
+            <Button variant={`${isDarkMode ? "light" : "dark"}`}>
+              {props.price}
+            </Button>
+            <Button
+              variant={`${isDarkMode ? "light" : "dark"}`}
+              onClick={handleNavigateDetail}
+              className="mx-2"
+            >
+              Details
+            </Button>
           </Card.Body>
         </Card>
       </OverlayTrigger>
