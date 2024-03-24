@@ -88,7 +88,7 @@ export const deleteComment = createAsyncThunk(
         headers: {
           Authorization:
             "Bearer " +
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmOWU5YmJkNWQxMjAwMTg5MGQ0NjQiLCJpYXQiOjE3MDk0NzYyMDAsImV4cCI6MTcxMDY4NTgwMH0.YeJD-StjZWn9oOh1EahV20sUB2hJwwICdl1EcrBpw5Q",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmOWU5YmJkNWQxMjAwMTg5MGQ0NjQiLCJpYXQiOjE3MTEyNzg0MjgsImV4cCI6MTcxMjQ4ODAyOH0.uHiSmLoK_x7Lb-ICSwlion_3cRzqAtNAwSMAakFuO94",
         },
       }
     );
